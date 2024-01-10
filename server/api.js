@@ -1,7 +1,7 @@
 const express = require('express');
 const apiRouter = express.Router();
-//const minionsRouter = require('./minionsRouter');
+const minionsRouter = require('./minionsRouter');
 
-//app.use('/minions', minionsRouter);
+apiRouter.use('/minions', minionsRouter);
 
 module.exports = apiRouter;
