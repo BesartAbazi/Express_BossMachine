@@ -1,5 +1,6 @@
 const express = require('express');
 const minionsRouter = express.Router();
+const minionsWorkRouter = require('./minionsWorkRouter');
 const {
     createMeeting,
     getAllFromDatabase,
@@ -9,6 +10,8 @@ const {
     deleteFromDatabasebyId,
     deleteAllFromDatabase,
 } = require('./db');
+
+minionsRouter.use('/:id/work', minionsWorkRouter);
 
 minionsRouter.param('id', (req, res, next, id) => {
     const minion = getFromDatabaseById('minions', id);
@@ -62,18 +65,5 @@ minionsRouter.delete('/:id', (req, res, next) => {
         res.status(500).send();
     }
 });
-
-
-// APIs for work
-
-minionsRouter.get('/:id/work', (req, res, next) => {
-    let minionWork = getAllFromDatabase('work');
-    minionWork = minionWork.filter(work => {
-        return work.minionId === req.minion.id ? work : null;
-    });
-    console.log(minionWork)
-    res.status(200).send(minionWork);
-});
-
 
 module.exports = minionsRouter;

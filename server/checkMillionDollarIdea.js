@@ -1,8 +1,13 @@
 const checkMillionDollarIdea = (req, res, next) => {
     const newIdea = req.body;
-    if (newIdea.numWeeks * newIdea.weeklyRevenue < 1000000) {
-        return res.status(202).send('The idea is not worth!');
+    if (!newIdea.numWeeks || !newIdea.weeklyRevenue || typeof(newIdea.numWeeks) !== 'number' || typeof(newIdea.weeklyRevenue) !== 'number'){
+        return res.status(400).send();
     }
+
+    if (newIdea.numWeeks * newIdea.weeklyRevenue < 1000000) {
+        return res.status(400).send('The idea is not worth!');
+    }
+    
     next();
 };
 

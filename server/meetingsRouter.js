@@ -34,7 +34,8 @@ meetingsRouter.get('/:id', (req, res, next) => {
 });
 
 meetingsRouter.post('/', (req, res, next) => {
-    const newMeeting = createMeeting('meetings', req.body);
+    let newMeeting = createMeeting('meetings', req.body);   // Create meeting
+    newMeeting = addToDatabase('meetings', newMeeting);     // Save meeting in the DB
     if (newMeeting){
         res.status(201).send(newMeeting);
     }
