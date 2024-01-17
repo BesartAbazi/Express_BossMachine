@@ -45,7 +45,6 @@ minionsRouter.post('/', (req, res, next) => {
 
 minionsRouter.put('/:id', (req, res, next) => {
     const updatedMinion = updateInstanceInDatabase('minions', req.body);
-    console.log(req.minion, updatedMinion)
     if (updatedMinion){
         res.status(201).send(updatedMinion);
     }
@@ -62,6 +61,18 @@ minionsRouter.delete('/:id', (req, res, next) => {
     else{
         res.status(500).send();
     }
+});
+
+
+// APIs for work
+
+minionsRouter.get('/:id/work', (req, res, next) => {
+    let minionWork = getAllFromDatabase('work');
+    minionWork = minionWork.filter(work => {
+        return work.minionId === req.minion.id ? work : null;
+    });
+    console.log(minionWork)
+    res.status(200).send(minionWork);
 });
 
 
