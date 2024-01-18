@@ -40,12 +40,12 @@ minionsWorkRouter.post('/', (req, res, next) => {
 });
 
 minionsWorkRouter.put('/:workId', (req, res, next) => {
-    const updatedWork = updateInstanceInDatabase('work', req.body);
-    if (updatedWork) {
-        res.status(201).send(updatedWork);
+    if (req.work.minionId !== req.body.minionId) {
+        res.status(400).send();
     }
-    else {
-        res.status(500).send();
+    else{
+        const updatedWork = updateInstanceInDatabase('work', req.body);
+        res.status(201).send(updatedWork);
     }
 });
 

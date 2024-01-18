@@ -1,14 +1,12 @@
 const checkMillionDollarIdea = (req, res, next) => {
-    const newIdea = req.body;
-    if (!newIdea.numWeeks || !newIdea.weeklyRevenue || typeof(newIdea.numWeeks) !== 'number' || typeof(newIdea.weeklyRevenue) !== 'number'){
+    const {numWeeks, weeklyRevenue} = req.body;
+    const total = numWeeks * weeklyRevenue;
+    if (!numWeeks || !weeklyRevenue || isNaN(total) || total < 1000000){
         return res.status(400).send();
     }
-
-    if (newIdea.numWeeks * newIdea.weeklyRevenue < 1000000) {
-        return res.status(400).send('The idea is not worth!');
+    else{
+        next();
     }
-    
-    next();
 };
 
 // Leave this exports assignment so that the function can be used elsewhere

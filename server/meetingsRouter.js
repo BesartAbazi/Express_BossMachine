@@ -40,7 +40,7 @@ meetingsRouter.post('/', (req, res, next) => {
         res.status(201).send(newMeeting);
     }
     else{
-        res.status(500).send();
+        res.status(400).send();
     }
 });
 
@@ -50,7 +50,7 @@ meetingsRouter.put('/:id', (req, res, next) => {
         res.status(201).send(updatedMeeting);
     }
     else{
-        res.status(500).send();
+        res.status(400).send();
     }
 });
 
@@ -60,7 +60,7 @@ meetingsRouter.delete('/', (req, res, next) => {
         res.status(204).send('OK');
     }
     else{
-        res.status(500).send();
+        res.status(400).send();
     }
 });
 
